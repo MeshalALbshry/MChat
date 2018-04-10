@@ -1,0 +1,182 @@
+﻿/* ------------ Chat Menu ------------ */
+#chat-menu{
+    background: #2C3239;
+    height: 93vh;
+    padding: 0;
+    overflow: scroll;
+    direction: rtl;
+    overflow-x: hidden!important;
+}
+
+.groups-menu{
+    background-color:#84C856 ;
+     color:white
+}
+.users-menu{
+    background-color:#84C856 ;
+    color:white ;
+    border-top:1px solid black;
+}
+
+.user-item{
+    color:white;
+    border-bottom:1px solid black; 
+}
+.group-item{
+    color:white
+}
+.group-item .icon{
+    color: yellow;
+}
+
+.group-item:hover{
+    background: #23292E;
+}
+
+
+.icon-item{
+    color: #FFE05B;
+}
+
+.user-item .icon{
+    color: yellow;
+}
+
+#text {
+    color: #C8C8C8;
+}
+
+.contact-status-online{
+    background: #86C958;
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    margin-left: 70px;
+    margin-top: 3px;
+}
+.contact-status-offline{
+    background: #BBBBBB;
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    margin-left: 70px;
+    margin-top: 3px;
+}
+
+#status{
+    padding-top:9px;
+}
+.user-item:hover{
+    background: #23292E;
+}
+.icon{
+    padding-top:9px;
+}
+/* ------------ End Chat Menu ------------ */
+
+
+
+
+
+/* ------------ Chat Window ------------ */
+#chat-window{
+    background: #F4F4F4;
+    height: 100%;
+    height: 93vh;
+    padding: 0 !important;
+}
+
+
+/* Input Message Div */
+#input-message-div{
+    /* position: absolute;
+    bottom: 0; */
+    background: #EEECEC;
+    border: 1px solid ;
+    border-color: #EFEEEE;
+    width: 100%;
+    height: 10%;
+}
+/* Button Send With icon */
+#btn-send{
+    display: inline;
+    float: left;
+    height: 80%;
+    width: 6%;
+    padding-top: 15px;
+    background: transparent;
+    margin-left: 10px;
+    /* border: #0084FE solid 1px; */
+    border-radius:100% !important;
+}
+.glyphicon-send{
+    color: #0084FE;
+    font-size: 35px;
+   vertical-align: middle;
+}
+.glyphicon-send:hover{
+    cursor: pointer;
+    color: #84C856;
+}
+/* End Button Send With icon */
+
+#input-message{
+    /* width: 88%; */
+    height: 60px ;
+    /* float: left; */
+    border-radius: 20px !important;
+    /* margin-left: 11%; */
+}
+/* End Input Masssage Div */
+
+#who-talk{
+    background: #0084FE;
+    position: static;
+    height: 10%;
+    width: 100%;
+    /* margin-top: 10px; */
+}
+#text-who-talk {
+    color: white;
+    margin-top: 0 !important;
+}
+
+#messages{
+    height: 80%;
+    padding: 1px;
+    overflow: scroll;
+    overflow-x: hidden!important;
+}
+/* Massages in the box */
+.msg-ui{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .msg-ui li{
+    display:inline-block;
+    clear: both;
+    padding: 20px;
+    border-radius: 17px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  #him{
+    background: #eee;
+    float: left;
+    margin-left:8px;
+  }
+  #me{
+    float: right;
+    background: #0084ff;
+    color: #fff;
+    margin-right:8px;
+  }
+  #brodcast{
+    background: rgb(245, 162, 162);
+    border: rgb(241, 0, 0) solid 1.5px;
+    float: left;
+    margin-left:8px;
+  }
+
+/* ------------ End Chat Window ------------ */
