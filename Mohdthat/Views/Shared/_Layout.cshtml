@@ -9,6 +9,7 @@
     @*@Styles.Render("~/Content/Chat.css")*@
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/whatsapp.css" rel="stylesheet" />
+    <link href="~/Content/AddContact.css" rel="stylesheet" />
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
@@ -24,6 +25,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Chat", "Index", "Home", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Add Contact", "Index", "AddContact", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

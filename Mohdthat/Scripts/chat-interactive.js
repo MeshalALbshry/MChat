@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     $('#input-message').hide()
     $('#btn-send').hide()
-    //$('#conversation').css('background', 'url(http://i.computer-bild.de/imgs/7/9/6/7/7/1/9/ad27f3c59e5b5e4f.jpg) no-repeat')
+    //$('#img-logo').css('background', 'url(Content/img/Logo.png) no-repeat')
     var hub = $.connection.chatHub;
 
     //Event click inside this method
@@ -107,16 +107,18 @@ $(document).ready(function () {
     hub.client.recivePrivateMessageCaller = function (user, message) {
         $("#conversation").append(sender(message, user));
     }
-
-    hub.client.recivePrivateMessageWhenClick = function (messages, currentUser) {
-
-        messages.forEach(function (msg) {
-            if (msg["Sender"] == currentUser) {
-                sender(msg["Message"],currentUser)
-            } else {
-                reciver(msg["Message"], msg["Sender"])
-            }
-        })
+    var rpmName = ''
+    hub.client.recivePrivateMessageWhenClick = function (messages, currentUser, toUser) {
+        if (rpmName != toUser) {
+            rpmName = toUser
+            messages.forEach(function (msg) {
+                if (msg["Sender"] == currentUser) {
+                    sender(msg["Message"], currentUser)
+                } else {
+                    reciver(msg["Message"], msg["Sender"])
+                }
+            })
+        }
     }
 
 

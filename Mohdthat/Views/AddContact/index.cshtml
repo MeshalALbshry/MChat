@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Mohdthat.Models.ApplicationUser>
+@{
+    ViewBag.Title = "index";
+}
+
+<div id="add-contact" class="container">
+    <div id="add-contact-content">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Add</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td><button id="@user.Id" class="btn btn-success">Add</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(".btn-success").click(function () {
+        var id = $(this).attr('id')
+        $.post("AddContact",
+        {
+            userId: id
+        },
+        function (data, status) {
+            alert("Data: " + data + "\nStatus: " + status);
+        });
+
+        //alert(id)
+    })
+</script>
+
+
+

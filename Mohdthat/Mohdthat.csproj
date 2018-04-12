@@ -174,6 +174,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,6 +232,10 @@
     <Compile Include="Migrations\201804100607177_AddUser_ContactsModle.Designer.cs">
       <DependentUpon>201804100607177_AddUser_ContactsModle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804100929386_UserContactChangeSringToInt.cs" />
+    <Compile Include="Migrations\201804100929386_UserContactChangeSringToInt.Designer.cs">
+      <DependentUpon>201804100929386_UserContactChangeSringToInt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -246,11 +251,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="Content\AddContact.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chat.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\default-avatar.png" />
+    <Content Include="Content\img\Logo.png" />
     <Content Include="Content\whatsapp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -305,6 +312,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\AddContact\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804100607177_AddUser_ContactsModle.resx">
       <DependentUpon>201804100607177_AddUser_ContactsModle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804100929386_UserContactChangeSringToInt.resx">
+      <DependentUpon>201804100929386_UserContactChangeSringToInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

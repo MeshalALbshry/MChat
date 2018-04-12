@@ -141,7 +141,7 @@ namespace Mohdthat.Hubs
                 
                 if (privateChatEnt != null)
                 {
-                    Clients.Caller.recivePrivateMessageWhenClick(privateChatEnt,currnetUserName);
+                    Clients.Caller.recivePrivateMessageWhenClick(privateChatEnt,currnetUserName,toUserName);
                 }
             }
             
