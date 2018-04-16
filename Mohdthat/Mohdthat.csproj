@@ -236,6 +236,74 @@
     <Compile Include="Migrations\201804100929386_UserContactChangeSringToInt.Designer.cs">
       <DependentUpon>201804100929386_UserContactChangeSringToInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804120659017_UserContactsChangeUserAddString.cs" />
+    <Compile Include="Migrations\201804120659017_UserContactsChangeUserAddString.Designer.cs">
+      <DependentUpon>201804120659017_UserContactsChangeUserAddString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804120815396_UserContactsDeleteUpdateAt.cs" />
+    <Compile Include="Migrations\201804120815396_UserContactsDeleteUpdateAt.Designer.cs">
+      <DependentUpon>201804120815396_UserContactsDeleteUpdateAt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804120823027_UserContactsChangeUserAddName.cs" />
+    <Compile Include="Migrations\201804120823027_UserContactsChangeUserAddName.Designer.cs">
+      <DependentUpon>201804120823027_UserContactsChangeUserAddName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804121139407_AddUserContactsUserCOntacts.cs" />
+    <Compile Include="Migrations\201804121139407_AddUserContactsUserCOntacts.Designer.cs">
+      <DependentUpon>201804121139407_AddUserContactsUserCOntacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804121155186_AddUserContactToUser.cs" />
+    <Compile Include="Migrations\201804121155186_AddUserContactToUser.Designer.cs">
+      <DependentUpon>201804121155186_AddUserContactToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804121156320_DeleteUserContactToUser.cs" />
+    <Compile Include="Migrations\201804121156320_DeleteUserContactToUser.Designer.cs">
+      <DependentUpon>201804121156320_DeleteUserContactToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150505023_AddUsersToUserContacts.cs" />
+    <Compile Include="Migrations\201804150505023_AddUsersToUserContacts.Designer.cs">
+      <DependentUpon>201804150505023_AddUsersToUserContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150605280_AddUserContactsToUser.cs" />
+    <Compile Include="Migrations\201804150605280_AddUserContactsToUser.Designer.cs">
+      <DependentUpon>201804150605280_AddUserContactsToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150616458_AddUserContactsToUserModel.cs" />
+    <Compile Include="Migrations\201804150616458_AddUserContactsToUserModel.Designer.cs">
+      <DependentUpon>201804150616458_AddUserContactsToUserModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150626135_AddUserBirthday.cs" />
+    <Compile Include="Migrations\201804150626135_AddUserBirthday.Designer.cs">
+      <DependentUpon>201804150626135_AddUserBirthday.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150627092_AddUserContacts.cs" />
+    <Compile Include="Migrations\201804150627092_AddUserContacts.Designer.cs">
+      <DependentUpon>201804150627092_AddUserContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150737586_AddUserContacts1.cs" />
+    <Compile Include="Migrations\201804150737586_AddUserContacts1.Designer.cs">
+      <DependentUpon>201804150737586_AddUserContacts1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150805451_AddUserContacts2.cs" />
+    <Compile Include="Migrations\201804150805451_AddUserContacts2.Designer.cs">
+      <DependentUpon>201804150805451_AddUserContacts2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150818577_AddUserContactsNullable.cs" />
+    <Compile Include="Migrations\201804150818577_AddUserContactsNullable.Designer.cs">
+      <DependentUpon>201804150818577_AddUserContactsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150831442_DeleteForyenKeyFromUserContacts.cs" />
+    <Compile Include="Migrations\201804150831442_DeleteForyenKeyFromUserContacts.Designer.cs">
+      <DependentUpon>201804150831442_DeleteForyenKeyFromUserContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150835229_addCurrentIDInUserContacts.cs" />
+    <Compile Include="Migrations\201804150835229_addCurrentIDInUserContacts.Designer.cs">
+      <DependentUpon>201804150835229_addCurrentIDInUserContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804160547181_CurrentUserInUserContact.cs" />
+    <Compile Include="Migrations\201804160547181_CurrentUserInUserContact.Designer.cs">
+      <DependentUpon>201804160547181_CurrentUserInUserContact.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -248,6 +316,7 @@
     <Compile Include="ModelView\UserDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\UserYouAddedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
@@ -363,6 +432,57 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804100929386_UserContactChangeSringToInt.resx">
       <DependentUpon>201804100929386_UserContactChangeSringToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804120659017_UserContactsChangeUserAddString.resx">
+      <DependentUpon>201804120659017_UserContactsChangeUserAddString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804120815396_UserContactsDeleteUpdateAt.resx">
+      <DependentUpon>201804120815396_UserContactsDeleteUpdateAt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804120823027_UserContactsChangeUserAddName.resx">
+      <DependentUpon>201804120823027_UserContactsChangeUserAddName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804121139407_AddUserContactsUserCOntacts.resx">
+      <DependentUpon>201804121139407_AddUserContactsUserCOntacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804121155186_AddUserContactToUser.resx">
+      <DependentUpon>201804121155186_AddUserContactToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804121156320_DeleteUserContactToUser.resx">
+      <DependentUpon>201804121156320_DeleteUserContactToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150505023_AddUsersToUserContacts.resx">
+      <DependentUpon>201804150505023_AddUsersToUserContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150605280_AddUserContactsToUser.resx">
+      <DependentUpon>201804150605280_AddUserContactsToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150616458_AddUserContactsToUserModel.resx">
+      <DependentUpon>201804150616458_AddUserContactsToUserModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150626135_AddUserBirthday.resx">
+      <DependentUpon>201804150626135_AddUserBirthday.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150627092_AddUserContacts.resx">
+      <DependentUpon>201804150627092_AddUserContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150737586_AddUserContacts1.resx">
+      <DependentUpon>201804150737586_AddUserContacts1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150805451_AddUserContacts2.resx">
+      <DependentUpon>201804150805451_AddUserContacts2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150818577_AddUserContactsNullable.resx">
+      <DependentUpon>201804150818577_AddUserContactsNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150831442_DeleteForyenKeyFromUserContacts.resx">
+      <DependentUpon>201804150831442_DeleteForyenKeyFromUserContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150835229_addCurrentIDInUserContacts.resx">
+      <DependentUpon>201804150835229_addCurrentIDInUserContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160547181_CurrentUserInUserContact.resx">
+      <DependentUpon>201804160547181_CurrentUserInUserContact.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

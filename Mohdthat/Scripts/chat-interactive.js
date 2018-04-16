@@ -128,8 +128,6 @@ $(document).ready(function () {
     $.connection.hub.start().done(function () {
 
         $('#btn-send').click(function () {
-            //console.log(toUserId)
-            //console.log(selected)
             var message = $("#input-message").val()
             
             hub.server.sendPrivateMessage(selected,toUserId, message);

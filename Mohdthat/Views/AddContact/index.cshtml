@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Mohdthat.Models.ApplicationUser>
+﻿@model Mohdthat.ViewModels.UserYouAddedViewModel
 @{
     ViewBag.Title = "index";
 }
@@ -13,30 +13,42 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var user in Model)
+                @foreach (var user in Model.Users)
                 {
-                    <tr>
-                        <td>@user.UserName</td>
-                        <td><button id="@user.Id" class="btn btn-success">Add</button></td>
-                    </tr>
+                    if (user.UserName != Model.CurrentUser)
+                    {
+                        var findUser = Model.UserContact.SingleOrDefault(f => f.UserID == user.Id);
+                        if (findUser != null)
+                        {
+                            if (user.UserName == findUser.User.UserName)
+                            {
+                                <tr>
+                                <td>@findUser.User.UserName</td>
+                                <td>@Html.ActionLink("Remove", "Delete", "AddContact", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
+                            </tr>
+                            }
+           
+                             
+                        }
+                         else
+                        {
+                            <tr>
+                            <td>@user.UserName</td>
+                            <td>@Html.ActionLink("Add", "Add", "AddContact", new { id = user.Id }, new { @class = "btn btn-success" })</td>
+                        </tr>
+                        }
+                    }
                 }
+        
             </tbody>
         </table>
+        
     </div>
 </div>
 <script>
-    $(".btn-success").click(function () {
-        var id = $(this).attr('id')
-        $.post("AddContact",
-        {
-            userId: id
-        },
-        function (data, status) {
-            alert("Data: " + data + "\nStatus: " + status);
-        });
+    //$(".btn-success").click(function () {
 
-        //alert(id)
-    })
+    //})
 </script>
 
 

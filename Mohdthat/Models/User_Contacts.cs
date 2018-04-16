@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using Mohdthat.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 namespace Mohdthat.Models
 {
     public class User_Contacts
     {
         public int Id { get; set; }
-        public string current_user { get; set; }
-        public int user_added { get; set; }
+
+        public string CurrnetUser { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+
+        public string UserID { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

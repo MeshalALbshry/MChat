@@ -5,6 +5,7 @@
     padding: 10px;
 }
 
-#add-contact-content{
-    /*background:red;*/
+.Add-Contact{
+    background: #6AB52B;
+    color: white;
 }
