@@ -2,7 +2,7 @@ $(document).ready(function () {
     var userId = ''
     var toUserId
     var selected
-    var tabs = []
+    var pConnectedUsers = []
 
     $('#input-message').hide()
     $('#btn-send').hide()
@@ -25,6 +25,7 @@ $(document).ready(function () {
             selected = name
             toUserId = userId
             currentConversion(name, img)
+            console.log(pConnectedUsers)
             $.connection.hub.start().done(function () {
                 hub.server.getPrivateMessage(selected)
             })
@@ -77,6 +78,12 @@ $(document).ready(function () {
 
     hub.client.onConnected = function (id, currentUser, connectedUsers) {
         console.log(connectedUsers)
+        connectedUsers.forEach(function (cuser) {
+            pConnectedUsers.push({
+                ConnectionId: cuser["ConnectionId"],
+                UserName: cuser["UserName"]
+            })
+        })
         //for (i = 0; i < connectedUsers.length; i++) {
         //    if (connectedUsers[i].UserName != currentUser) {
         //        addUserContact(connectedUsers[i].UserName, connectedUsers[i].ConnectionId);
@@ -87,18 +94,30 @@ $(document).ready(function () {
 
     hub.client.userContact = function (usersContact) {
         usersContact.forEach(function (user) {
-            //console.log(user)
-            addUserContact(user["UserSelected"], user["UserID"])
+            addUserContact(user["UserSelected"])
         })
     }
 
     hub.client.onNewUserConnected = function (id ,newUser) {
-        addUserContact(newUser, id)
+        //addUserContact(newUser, id)
+        console.log("wlecome " + newUser)
+        pConnectedUsers.push({
+            ConnectionId: id,
+            UserName: newUser
+        })
     }
 
    
     hub.client.onUserDisconnected = function (id,userName) {
         //deleteUserContact(userName)
+        console.log(userName + " Is out")
+
+        $.each(pConnectedUsers, function (i) {
+            if (pConnectedUsers[i].UserName === userName) {
+                pConnectedUsers.splice(i, 1);
+                return false;
+            }
+        });
     }
 
     hub.client.recivePrivateMessageOthers = function (id, user, message) {
@@ -136,10 +155,31 @@ $(document).ready(function () {
 
         $('#btn-send').click(function () {
             var message = $("#input-message").val()
+            if(message != ""){
+                hub.server.sendPrivateMessage(selected, toUserId, message);
+                $("#input-message").val('')
+            }
             
-            hub.server.sendPrivateMessage(selected,toUserId, message);
-            $("#input-message").val('')
         })
+
+        $('#input-message').on('keypress', function (e) {
+            if (e.which === 13) {
+
+                var message = $("#input-message").val()
+                if (message != "") {
+                    hub.server.sendPrivateMessage(selected, toUserId, message);
+                    $("#input-message").val('')
+                }
+                //Disable textbox to prevent multiple submit
+                $(this).attr("disabled", "disabled");
+
+                //Do Stuff, submit, etc..
+
+                //Enable the textbox again if needed.
+                $(this).removeAttr("disabled");
+            }
+        });
+
 
     })
 })

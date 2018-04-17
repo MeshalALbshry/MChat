@@ -34,14 +34,14 @@ namespace Mohdthat.Hubs
             var CurrentUser = Context.User.Identity.Name;
             var userContact = db.UserContacts.Where(u => u.CurrnetUser == CurrentUser);
             Clients.Caller.currentUser(CurrentUser);
-            Clients.Caller.userContact(userContact);
-
+            //Clients.Caller.userContact(userContact);
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id , UserName = CurrentUser});
                 Clients.Caller.onConnected(id, CurrentUser, ConnectedUsers);
+                Clients.Caller.userContact(userContact, ConnectedUsers);
             }
-            //Clients.AllExcept(id).onNewUserConnected(id,CurrentUser);
+            Clients.AllExcept(id).onNewUserConnected(id, CurrentUser);
             return base.OnConnected();
         }
 
@@ -52,7 +52,7 @@ namespace Mohdthat.Hubs
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
-                //Clients.All.onUserDisconnected(id, item.UserName);
+                Clients.All.onUserDisconnected(id, item.UserName);
             }
             return base.OnDisconnected(stopCalled);
         }
