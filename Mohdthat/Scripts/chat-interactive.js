@@ -23,7 +23,7 @@ $(document).ready(function () {
                 $("#conversation").text('')
             }
             selected = name
-            toUserId = userId
+            //toUserId = userId
             currentConversion(name, img)
 
             var currentUserYouTalkToHimConID = pConnectedUsers.filter(x => x.UserName == name)
@@ -33,6 +33,7 @@ $(document).ready(function () {
             }else{
                 //User is connected
                 console.log(currentUserYouTalkToHimConID[0].UserName)
+                toUserId = currentUserYouTalkToHimConID[0].ConnectionId
             }
 
             $.connection.hub.start().done(function () {
