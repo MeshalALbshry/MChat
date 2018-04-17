@@ -32,17 +32,16 @@ namespace Mohdthat.Hubs
         {
             var id = Context.ConnectionId;
             var CurrentUser = Context.User.Identity.Name;
-
+            var userContact = db.UserContacts.Where(u => u.CurrnetUser == CurrentUser);
             Clients.Caller.currentUser(CurrentUser);
+            Clients.Caller.userContact(userContact);
 
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id , UserName = CurrentUser});
                 Clients.Caller.onConnected(id, CurrentUser, ConnectedUsers);
             }
-
-
-            Clients.AllExcept(id).onNewUserConnected(id,CurrentUser);
+            //Clients.AllExcept(id).onNewUserConnected(id,CurrentUser);
             return base.OnConnected();
         }
 
@@ -53,7 +52,7 @@ namespace Mohdthat.Hubs
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
-                Clients.All.onUserDisconnected(id, item.UserName);
+                //Clients.All.onUserDisconnected(id, item.UserName);
             }
             return base.OnDisconnected(stopCalled);
         }
@@ -63,12 +62,9 @@ namespace Mohdthat.Hubs
         {
             var currnetUserName = Context.User.Identity.Name;
             var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserIdCon);
-            var currentUserCon = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
 
             var privateChatConver = db.PrivateChatConversation.FirstOrDefault(p => p.SesstionID == currnetUserName + "_" + toUserName || p.SesstionID == toUserName + "_" + currnetUserName);
 
-            if (toUserIdCon != null && currentUserCon != null )
-            {
                 if (privateChatConver != null)
                 {
                     if (privateChatConver.SesstionID == currnetUserName + "_" + toUserName || privateChatConver.SesstionID == toUserName + "_" + currnetUserName)
@@ -127,10 +123,13 @@ namespace Mohdthat.Hubs
                     }
                 }
 
-                Clients.Client(toUserIdCon).recivePrivateMessageOthers(Context.ConnectionId, currentUserCon.UserName, message);
-                Clients.Caller.recivePrivateMessageCaller(Context.User.Identity.Name, message);
-            }
+                if (toUser != null)
+                {
+                    Clients.Client(toUserIdCon).recivePrivateMessageOthers(Context.ConnectionId, currnetUserName, message);
+                }
+                Clients.Caller.recivePrivateMessageCaller(currnetUserName, message);
         }
+
         public void GetPrivateMessage(string toUserName)
         {
             var currnetUserName = Context.User.Identity.Name;

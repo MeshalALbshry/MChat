@@ -14,6 +14,8 @@ namespace Mohdthat.Models
         public string CurrnetUser { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public string UserSelected { get; set; }
+
         public string UserID { get; set; }
         public virtual ApplicationUser User { get; set; }
     }

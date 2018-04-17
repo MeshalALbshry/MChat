@@ -48,8 +48,8 @@ namespace Mohdthat.Controllers
             {
                 CurrnetUser = currnetUser,
                 User = user_added,
-                CreatedAt = DateTime.Now
-
+                CreatedAt = DateTime.Now,
+                UserSelected = user_added.UserName
             });
             db.SaveChanges();
             return RedirectToAction("Index","AddContact");

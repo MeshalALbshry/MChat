@@ -77,12 +77,19 @@ $(document).ready(function () {
 
     hub.client.onConnected = function (id, currentUser, connectedUsers) {
         console.log(connectedUsers)
-        for (i = 0; i < connectedUsers.length; i++) {
-            if (connectedUsers[i].UserName != currentUser) {
-                addUserContact(connectedUsers[i].UserName, connectedUsers[i].ConnectionId);
-            }
+        //for (i = 0; i < connectedUsers.length; i++) {
+        //    if (connectedUsers[i].UserName != currentUser) {
+        //        addUserContact(connectedUsers[i].UserName, connectedUsers[i].ConnectionId);
+        //    }
             
-        }
+        //}
+    }
+
+    hub.client.userContact = function (usersContact) {
+        usersContact.forEach(function (user) {
+            //console.log(user)
+            addUserContact(user["UserSelected"], user["UserID"])
+        })
     }
 
     hub.client.onNewUserConnected = function (id ,newUser) {
@@ -91,7 +98,7 @@ $(document).ready(function () {
 
    
     hub.client.onUserDisconnected = function (id,userName) {
-        deleteUserContact(userName)
+        //deleteUserContact(userName)
     }
 
     hub.client.recivePrivateMessageOthers = function (id, user, message) {

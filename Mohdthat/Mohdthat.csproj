@@ -304,6 +304,10 @@
     <Compile Include="Migrations\201804160547181_CurrentUserInUserContact.Designer.cs">
       <DependentUpon>201804160547181_CurrentUserInUserContact.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804170613281_UserContactAddUserSelected.cs" />
+    <Compile Include="Migrations\201804170613281_UserContactAddUserSelected.Designer.cs">
+      <DependentUpon>201804170613281_UserContactAddUserSelected.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -483,6 +487,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804160547181_CurrentUserInUserContact.resx">
       <DependentUpon>201804160547181_CurrentUserInUserContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804170613281_UserContactAddUserSelected.resx">
+      <DependentUpon>201804170613281_UserContactAddUserSelected.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
