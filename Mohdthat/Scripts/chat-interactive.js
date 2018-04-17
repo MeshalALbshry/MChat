@@ -25,7 +25,16 @@ $(document).ready(function () {
             selected = name
             toUserId = userId
             currentConversion(name, img)
-            console.log(pConnectedUsers)
+
+            var currentUserYouTalkToHimConID = pConnectedUsers.filter(x => x.UserName == name)
+            if (currentUserYouTalkToHimConID[0] == undefined) {
+                //User is deisconected
+                console.log("No coneection")
+            }else{
+                //User is connected
+                console.log(currentUserYouTalkToHimConID[0].UserName)
+            }
+
             $.connection.hub.start().done(function () {
                 hub.server.getPrivateMessage(selected)
             })
@@ -107,7 +116,6 @@ $(document).ready(function () {
         })
     }
 
-   
     hub.client.onUserDisconnected = function (id,userName) {
         //deleteUserContact(userName)
         console.log(userName + " Is out")
