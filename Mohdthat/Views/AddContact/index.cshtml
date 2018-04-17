@@ -17,13 +17,13 @@
                 {
                     if (user.UserName != Model.CurrentUser)
                     {
-                        var findUser = Model.UserContact.SingleOrDefault(f => f.UserID == user.Id);
+                        var findUser = Model.UserContact.SingleOrDefault(f => f.UserSelected == user.UserName);
                         if (findUser != null)
                         {
-                            if (user.UserName == findUser.User.UserName)
+                            if (user.UserName == findUser.UserSelected)
                             {
-                                <tr>
-                                <td>@findUser.User.UserName</td>
+                              <tr>
+                                <td>@findUser.UserSelected</td>
                                 <td>@Html.ActionLink("Remove", "Delete", "AddContact", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
                             </tr>
                             }
