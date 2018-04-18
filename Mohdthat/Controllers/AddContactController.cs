@@ -77,6 +77,7 @@ namespace Mohdthat.Controllers
                 return HttpNotFound();
 
             db.UserContacts.Remove(userCon);
+            db.SaveChanges();
             db.UserContacts.Remove(cUserCon);
             db.SaveChanges();
             return RedirectToAction("Index", "AddContact");

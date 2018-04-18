@@ -24,12 +24,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Chat", "Index", "Home", null, new { @class = "navbar-brand" })
-                @Html.ActionLink("Add Contact", "Index", "AddContact", null, new { @class = "navbar-brand", @style = "background:#6AB52B;color:white" })
+                @*@Html.ActionLink("Chat", "Index", "Home", null, new { @class = "navbar-brand" })*@
+                @*@Html.ActionLink("Add Contact", "Index", "AddContact", null, new { @class = "navbar-brand", @style = "background:#6AB52B;color:white" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+
+                    <li style="background: #222222; color: white; font-size: 18px">
+                        <a href="/" style="color:white"><div class="glyphicon glyphicon-comment"></div></a>
+                    </li>
+                    
+                    <li style="background: #6AB52B; color: white ; font-size:16px">
+                        <a href="/AddContact" style="color:white"><div class="glyphicon glyphicon-plus"></div> Add Contact</a>
+                    </li>
+
+                    <li style="background: #428bca; color: white; font-size: 16px">
+                        <a href="/Group" style="color:white"><div class="glyphicon glyphicon-user"></div> Groups</a>
+                    </li>
+
+                    <li style="background: #D9534F; color: white; font-size: 16px; ">
+                        <a href="/Broadcast" style="color:white"><div class="glyphicon glyphicon-bullhorn"></div> Brodcast</a>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
