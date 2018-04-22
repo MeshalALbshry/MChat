@@ -11,6 +11,8 @@ namespace Mohdthat.ViewModels
         public IEnumerable<User_Contacts> UserContact { get; set; }
         public IEnumerable<ApplicationUser> Users { get; set; }
         public string CurrentUser { get; set; }
+        public Room Group { get; set; }
+        public IEnumerable<User_Room> UserRoom { get; set; }
 
     }
 }

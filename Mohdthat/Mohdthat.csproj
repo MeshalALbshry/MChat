@@ -310,6 +310,42 @@
     <Compile Include="Migrations\201804170613281_UserContactAddUserSelected.Designer.cs">
       <DependentUpon>201804170613281_UserContactAddUserSelected.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804180829010_RoomToGroup.cs" />
+    <Compile Include="Migrations\201804180829010_RoomToGroup.Designer.cs">
+      <DependentUpon>201804180829010_RoomToGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804180832435_RoomToGroup1.cs" />
+    <Compile Include="Migrations\201804180832435_RoomToGroup1.Designer.cs">
+      <DependentUpon>201804180832435_RoomToGroup1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804181141522_createdByToString.cs" />
+    <Compile Include="Migrations\201804181141522_createdByToString.Designer.cs">
+      <DependentUpon>201804181141522_createdByToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804181151473_RoomDeleteUpdateAt.cs" />
+    <Compile Include="Migrations\201804181151473_RoomDeleteUpdateAt.Designer.cs">
+      <DependentUpon>201804181151473_RoomDeleteUpdateAt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804190621535_UserRoomDeleteUpdateAt.cs" />
+    <Compile Include="Migrations\201804190621535_UserRoomDeleteUpdateAt.Designer.cs">
+      <DependentUpon>201804190621535_UserRoomDeleteUpdateAt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804190625135_UserRoomDeleteUpdateAt1.cs" />
+    <Compile Include="Migrations\201804190625135_UserRoomDeleteUpdateAt1.Designer.cs">
+      <DependentUpon>201804190625135_UserRoomDeleteUpdateAt1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804190626527_UserRoomAddUserId.cs" />
+    <Compile Include="Migrations\201804190626527_UserRoomAddUserId.Designer.cs">
+      <DependentUpon>201804190626527_UserRoomAddUserId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804190659416_UserYouAddedViewModelAddUserRoom.cs" />
+    <Compile Include="Migrations\201804190659416_UserYouAddedViewModelAddUserRoom.Designer.cs">
+      <DependentUpon>201804190659416_UserYouAddedViewModelAddUserRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804190709296_UserRoomUserSelected.cs" />
+    <Compile Include="Migrations\201804190709296_UserRoomUserSelected.Designer.cs">
+      <DependentUpon>201804190709296_UserRoomUserSelected.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -317,6 +353,7 @@
     <Compile Include="Models\PrivateChatEntries.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomEntries.cs" />
+    <Compile Include="ViewModels\RoomsViewModel.cs" />
     <Compile Include="Models\User_Contacts.cs" />
     <Compile Include="Models\User_Room.cs" />
     <Compile Include="ModelView\UserDetail.cs" />
@@ -391,6 +428,7 @@
     <Content Include="Views\AddContact\index.cshtml" />
     <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\Broadcast\Index.cshtml" />
+    <Content Include="Views\Group\AddMembersView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -495,6 +533,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804170613281_UserContactAddUserSelected.resx">
       <DependentUpon>201804170613281_UserContactAddUserSelected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804180829010_RoomToGroup.resx">
+      <DependentUpon>201804180829010_RoomToGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804180832435_RoomToGroup1.resx">
+      <DependentUpon>201804180832435_RoomToGroup1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804181141522_createdByToString.resx">
+      <DependentUpon>201804181141522_createdByToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804181151473_RoomDeleteUpdateAt.resx">
+      <DependentUpon>201804181151473_RoomDeleteUpdateAt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190621535_UserRoomDeleteUpdateAt.resx">
+      <DependentUpon>201804190621535_UserRoomDeleteUpdateAt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190625135_UserRoomDeleteUpdateAt1.resx">
+      <DependentUpon>201804190625135_UserRoomDeleteUpdateAt1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190626527_UserRoomAddUserId.resx">
+      <DependentUpon>201804190626527_UserRoomAddUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190659416_UserYouAddedViewModelAddUserRoom.resx">
+      <DependentUpon>201804190659416_UserYouAddedViewModelAddUserRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190709296_UserRoomUserSelected.resx">
+      <DependentUpon>201804190709296_UserRoomUserSelected.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

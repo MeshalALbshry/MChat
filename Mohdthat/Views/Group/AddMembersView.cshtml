@@ -1,0 +1,47 @@
+﻿@model Mohdthat.ViewModels.UserYouAddedViewModel
+@{
+    ViewBag.Title = "AddMembers";
+}
+
+<div id="add-contact" class="container">
+    <h1>@Model.Group.Name</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Add</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{var cRoom = Model.UserRoom.Where(c => c.RoomID == Model.Group.Id);}
+            @foreach (var user in Model.Users)
+            {
+                
+                if (user.UserName != Model.CurrentUser)
+                {
+                    var findUser = cRoom.FirstOrDefault(f => f.UserSelected == user.UserName);
+                    if (findUser != null)
+                    {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@Html.ActionLink("Delete", "Delete", "Group", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
+                            </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>@Html.ActionLink("Add", "Add", "Group", new { id = user.Id, roomId = Model.Group.Id }, new { @class = "btn btn-success" })</td>
+                        </tr>
+                    }
+                }
+                    
+            }
+            
+
+        </tbody>
+    </table>
+
+</div>
+

@@ -69,7 +69,7 @@ namespace Mohdthat.Controllers
         public ActionResult Delete(string id)
         {
             var currnetUser = User.Identity.Name;
-            var cuser_added = db.Users.SingleOrDefault(u => u.UserName == currnetUser);
+            var cuser_added = db.Users.FirstOrDefault(u => u.UserName == currnetUser);
 
             var userCon = db.UserContacts.FirstOrDefault(u => u.UserID == id);
             var cUserCon = db.UserContacts.FirstOrDefault(u => u.UserSelected == currnetUser);

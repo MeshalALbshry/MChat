@@ -40,7 +40,7 @@ body {
 .side {
   padding: 0;
   margin: 0;
-  height: 100%;
+  height: 100vh;
 }
 .side-one {
   padding: 0;
@@ -163,7 +163,7 @@ body {
   padding: 0 !important;
   margin: 0 !important;
   background-color: #fff;
-  overflow-y: auto;
+  overflow-y: scroll;
   border: 1px solid #f7f7f7;
   height: calc(100% - 120px);
 }
@@ -360,7 +360,7 @@ body {
   padding: 5px !important;
   word-wrap:break-word;
   font-weight: 200;
-  font-size: 14px;
+  font-size: 12pt;
   padding-bottom: 0 !important;
 }
 

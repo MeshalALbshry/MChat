@@ -1,21 +1,48 @@
-﻿
+﻿@model  Mohdthat.ViewModels.RoomsViewModel
 @{
     ViewBag.Title = "Index";
+   
 }
+
 <div id="add-contact" class="container">
-    <button class="btn btn-success">Add</button>
+
+    <div class="jumbotron text-center" style="font-size:30pt">
+        Add Groups
+    </div>
+
+@using (Html.BeginForm("Add", "Group"))
+{ 
+     <button class="btn btn-success" type="submit">Add</button>
+     @Html.AntiForgeryToken()
+        @Html.TextBoxFor(m => m.Room.Name, new { @class = "form-control" })
+}
+   
+    
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Members</th>
+                <th><h4>ID</h4></th>
+                <th><h4>Name</h4></th>
+                <th><h4>Created By</h4></th>
+                <th><h4>Created At</h4></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>الدورية</td>
-                <td>23</td>
+            <tr>
+                @if (Model.Rooms == null)
+                {
+                    <td><h4>Nothing</h4></td>
+                }
             </tr>
+            @foreach(var group in Model.Rooms){
+                 <tr>
+                     <td><h4>@group.Id</h4></td>
+                    <td><h4>@Html.ActionLink(group.Name, "AddMembersView", "Group", new { id = group.Id }, new { @class = "" })</h4></td>
+                    <td><h4>@group.CreatedBy</h4></td>
+                     <td><h4>@group.CreatedAt</h4></td>
+                </tr>          
+            }
         </tbody>
     </table>
 

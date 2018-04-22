@@ -11,16 +11,14 @@ namespace Mohdthat.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        public string UserID { get; set; }
         public ApplicationUser User { get; set; }
 
-        [Required]
+        public int RoomID { get; set; }
         public Room Room { get; set; }
 
-        [Required]
+        public string UserSelected { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public DateTime UpdatedAt { get; set; }
     }
 }

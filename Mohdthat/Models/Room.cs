@@ -10,18 +10,18 @@ namespace Mohdthat.Models
     {
         public int Id { get; set; }
 
-        [Required]
+
         public string Name { get; set; }
 
-        [Required]
+
         public bool IsActive { get; set; }
 
-        [Required]
+
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public DateTime UpdatedAt { get; set; }
 
-        public ApplicationUser CreatedBy { get; set; }
+        //public DateTime UpdatedAt { get; set; }
+
+        public string CreatedBy { get; set; }
     }
 }

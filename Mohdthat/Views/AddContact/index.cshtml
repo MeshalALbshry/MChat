@@ -4,12 +4,18 @@
 }
 
 <div id="add-contact" class="container">
+
+    <div class="jumbotron text-center" style="font-size:30pt">
+        Add Contacts
+    </div>
+
+
     <div id="add-contact-content">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Add</th>
+                    <th><h4>Name</h4></th>
+                    <th><h4>Add</h4></th>
                 </tr>
             </thead>
             <tbody>
@@ -17,24 +23,23 @@
                 {
                     if (user.UserName != Model.CurrentUser)
                     {
-                        var findUser = Model.UserContact.SingleOrDefault(f => f.UserSelected == user.UserName);
+                        var findUser = Model.UserContact.FirstOrDefault(f => f.UserSelected == user.UserName);
                         if (findUser != null)
                         {
                             if (user.UserName == findUser.UserSelected)
                             {
                               <tr>
-                                <td>@findUser.UserSelected</td>
-                                <td>@Html.ActionLink("Remove", "Delete", "AddContact", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
+                                <td><h4>@findUser.UserSelected</h4></td>
+                                <td><h4>@Html.ActionLink("Delete", "Delete", "AddContact", new { id = user.Id }, new { @class = "btn btn-danger" })</h4></td>
                             </tr>
                             }
-           
                              
                         }
                          else
                         {
                             <tr>
-                            <td>@user.UserName</td>
-                            <td>@Html.ActionLink("Add", "Add", "AddContact", new { id = user.Id }, new { @class = "btn btn-success" })</td>
+                            <td><h4>@user.UserName</h4></td>
+                            <td><h4>@Html.ActionLink("Add", "Add", "AddContact", new { id = user.Id }, new { @class = "btn btn-success" })</h4></td>
                         </tr>
                         }
                     }

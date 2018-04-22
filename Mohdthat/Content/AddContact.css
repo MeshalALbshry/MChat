@@ -3,6 +3,7 @@
     background: snow;
     height: 100vh;
     padding: 10px;
+    overflow-y: scroll;
 }
 
 .Add-Contact{
