@@ -31,16 +31,15 @@ namespace Mohdthat.Controllers
             return View(Groups);
         }
 
+        //Add Room
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Add(Room room)
         {
             var currentUser = User.Identity.Name;
-
+            var cUser = db.Users.SingleOrDefault(u => u.UserName == currentUser);
             if (!ModelState.IsValid)
-            {
                 return View("Index", "Home");
-            }
 
             if (room.Id == 0)
             {
@@ -51,6 +50,18 @@ namespace Mohdthat.Controllers
                     CreatedBy = currentUser,
                 });
                 db.SaveChanges();
+                var iRoom = db.Room.FirstOrDefault(i => i.Name == room.Name);
+                if (iRoom != null)
+                {
+                    db.UserRoom.Add(new User_Room
+                    {
+                        User = cUser,
+                        UserSelected = cUser.UserName,
+                        RoomID = iRoom.Id,
+                        CreatedAt = DateTime.Now
+                    });
+                    db.SaveChanges();
+                }  
             }
             else
             {
@@ -87,6 +98,7 @@ namespace Mohdthat.Controllers
             return View(usersWithUserContact);
         }
 
+        //Add Mebember to group
         public ActionResult Add(string id , int roomId)
         {
             var user_added = db.Users.SingleOrDefault(u => u.Id == id);

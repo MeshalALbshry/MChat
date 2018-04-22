@@ -1,14 +1,16 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     var userId = ''
     var toUserId
     var selected
+    //group
+    var selectedGroup
+    var groupID
     var pConnectedUsers = []
-
+    isGroup = false
     $('#input-message').hide()
     $('#btn-send').hide()
     //$('#img-logo').css('background', 'url(Content/img/Logo.png) no-repeat')
     var hub = $.connection.chatHub;
-
     //Event click inside this method
     function addUserContact(name,userId, img) {
         if (img == null) {
@@ -17,6 +19,7 @@ $(document).ready(function () {
         var tag = '<div class="row sideBar-body" id="' + name + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="time-meta pull-right">18:1s</span></div></div></div></div>'
         $("#sideBar").append(tag)
         $('#' + name).click(function () {
+            isGroup = false
             $('#input-message').show()
             $('#btn-send').show()
             if (selected != name) {
@@ -38,6 +41,40 @@ $(document).ready(function () {
 
             $.connection.hub.start().done(function () {
                 hub.server.getPrivateMessage(selected)
+            })
+        })
+    }
+    //Event click inside this method
+    function addGroup(name,groupid,userId, img) {
+        if (img == null) {
+            img = 'Content/img/default-avatar.png'
+        }
+        var tag = '<div class="row sideBar-body" id="' + name + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="glyphicon glyphicon-user"></span></div></div></div></div>'
+        $("#sideBar").append(tag)
+        $('#' + name).click(function () {
+            groupID = groupid
+            isGroup = true
+            $('#input-message').show()
+            $('#btn-send').show()
+            if (selectedGroup != name || selected != name) {
+                $("#conversation").text('')
+            }
+            selectedGroup = name
+            //toUserId = userId
+            currentConversion(name, img)
+
+            var currentUserYouTalkToHimConID = pConnectedUsers.filter(x => x.UserName == name)
+            if (currentUserYouTalkToHimConID[0] == undefined) {
+                //User is deisconected
+                console.log("No coneection")
+            }else{
+                //User is connected
+                console.log(currentUserYouTalkToHimConID[0].UserName)
+                toUserId = currentUserYouTalkToHimConID[0].ConnectionId
+            }
+
+            $.connection.hub.start().done(function () {
+                hub.server.getGroupMessage(groupid)
             })
         })
     }
@@ -130,9 +167,9 @@ $(document).ready(function () {
     }
 
     hub.client.recivePrivateMessageOthers = function (id, user, message) {
-        console.log(id)
-        console.log(user)
-        console.log(message)
+        //console.log(id)
+        //console.log(user)
+        //console.log(message)
         if (user == selected) {
             $("#conversation").append(reciver(message, user));
         }
@@ -156,6 +193,31 @@ $(document).ready(function () {
         }
     }
 
+    //Group When click get data from server
+    var rpmGroup
+    hub.client.reciveGroupMessageWhenClick = function(messages,currnetUserName,gId){
+        if(rpmGroup != gId){
+            rpmGroup = gId
+            messages.forEach(function(msg){
+                //console.log(msg["Message"])
+                //console.log(msg["Sender"]["UserName"])
+                if (msg["Sender"]["UserName"] == currnetUserName) {
+                    console.log(msg["Sender"]["UserName"])
+                    sender(msg["Message"], currnetUserName)
+                }else{
+                    //console.log(msg["Sender"]["UserName"])
+                    reciver(msg["Message"],msg["Sender"]["UserName"])
+                }
+            })
+        }
+    }
+    //Get Group
+    hub.client.groups = function(groups){
+
+        groups.forEach(function(group){
+            addGroup(group["Room"]["Name"],group["RoomID"])
+        })
+    }
 
     
    
@@ -165,7 +227,12 @@ $(document).ready(function () {
         $('#btn-send').click(function () {
             var message = $("#input-message").val()
             if(message != ""){
-                hub.server.sendPrivateMessage(selected, toUserId, message);
+                if (isGroup) {
+                    console.log(groupID)
+                    hub.server.sendToGroup(message,groupID)
+                }else{
+                    hub.server.sendPrivateMessage(selected, toUserId, message);
+                }
                 $("#input-message").val('')
             }
             

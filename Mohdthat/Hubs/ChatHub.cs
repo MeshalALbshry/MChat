@@ -33,6 +33,8 @@ namespace Mohdthat.Hubs
             var id = Context.ConnectionId;
             var CurrentUser = Context.User.Identity.Name;
             var userContact = db.UserContacts.Where(u => u.CurrnetUser == CurrentUser);
+            //Group
+            var userRoom = db.UserRoom.Include(u => u.Room).Where(u => u.UserSelected == CurrentUser);
             Clients.Caller.currentUser(CurrentUser);
             //Clients.Caller.userContact(userContact);
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
@@ -40,6 +42,7 @@ namespace Mohdthat.Hubs
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id , UserName = CurrentUser});
                 Clients.Caller.onConnected(id, CurrentUser, ConnectedUsers);
                 Clients.Caller.userContact(userContact, ConnectedUsers);
+                Clients.Caller.groups(userRoom);
             }
             Clients.AllExcept(id).onNewUserConnected(id, CurrentUser);
             return base.OnConnected();
@@ -87,13 +90,14 @@ namespace Mohdthat.Hubs
                             CreatedAt = DateTime.Now
                         });
                         db.SaveChanges();
-                        if (privateChatConver.Id != null)
+                        var pId = db.PrivateChatConversation.FirstOrDefault(p => p.SesstionID == currnetUserName + "_" + toUserName);
+                        if (pId != null)
                         {
                             db.PrivateChatEntries.Add(new PrivateChatEntries
                             {
                                 Message = message,
                                 Sender = currnetUserName,
-                                ConversationID = privateChatConver.Id,
+                                ConversationID = pId.Id,
                                 CreatedAt = DateTime.Now
                             });
                             db.SaveChanges();
@@ -110,13 +114,14 @@ namespace Mohdthat.Hubs
                         CreatedAt = DateTime.Now
                     });
                     db.SaveChanges();
-                    if (privateChatConver.Id != null)
+                    var pId = db.PrivateChatConversation.FirstOrDefault(p => p.SesstionID == currnetUserName + "_" + toUserName);
+                    if (pId != null)
                     {
                         db.PrivateChatEntries.Add(new PrivateChatEntries
                         {
                              Message = message,
                              Sender = currnetUserName,
-                             ConversationID = privateChatConver.Id,
+                             ConversationID = pId.Id,
                             CreatedAt = DateTime.Now
                         });
                         db.SaveChanges();
@@ -144,6 +149,30 @@ namespace Mohdthat.Hubs
                 }
             }
             
+        }
+        #endregion
+
+        #region Group
+        public void SendToGroup(string message ,int groupID)
+        {
+            var currnetUserName = Context.User.Identity.Name;
+            var userId = db.Users.FirstOrDefault(u => u.UserName == currnetUserName);
+            var room = db.Room.FirstOrDefault(r => r.Id == groupID);
+            db.RoomEntries.Add(new RoomEntries { 
+                Message = message,
+                Room = room,
+                Sender = userId,
+                CreatedAt = DateTime.Now
+            });
+            db.SaveChanges();
+        }
+
+        public void GetGroupMessage(int roomid)
+        {
+            var currnetUserName = Context.User.Identity.Name;
+            var getMessage = db.RoomEntries.Include(u => u.Sender).Where(r => r.Room.Id == roomid);
+
+            Clients.Caller.reciveGroupMessageWhenClick(getMessage, currnetUserName, roomid);
         }
         #endregion
 
