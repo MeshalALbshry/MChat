@@ -10,6 +10,11 @@
     $('#input-message').hide()
     $('#btn-send').hide()
     //$('#img-logo').css('background', 'url(Content/img/Logo.png) no-repeat')
+    function underscoreBS(name){
+        var str = name;
+        var replaced = str.split(' ').join('_');
+        return replaced
+    }
     var hub = $.connection.chatHub;
     //Event click inside this method
     function addUserContact(name,userId, img) {
@@ -50,10 +55,10 @@
             if (img == null) {
                 img = 'Content/img/Group.png'
             }
-            var tag = '<div class="row sideBar-body" id="' + name + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="glyphicon glyphicon-user" style="color:#3E9EF8"> '+numberOfMember+'</span></div></div></div></div>'
+            var tag = '<div class="row sideBar-body" id="' + underscoreBS(name) + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="glyphicon glyphicon-user" style="color:#3E9EF8"> '+numberOfMember+'</span></div></div></div></div>'
             $("#sideBar").append(tag)
         
-            $('#' + name).click(function () {
+            $('#' + underscoreBS(name)).click(function () {
                 groupID = groupid
                 isGroup = true
                 $('#input-message').show()
@@ -114,7 +119,12 @@
         $("#conversation").append(tag);
         scrollDown()
     }
-
+    //To make name at Id works when click
+    function underscoreBS(name){
+        var str = name;
+        var replaced = str.split(' ').join('_');
+        return replaced
+    }
 
     //scrollDown
     function scrollDown() {
