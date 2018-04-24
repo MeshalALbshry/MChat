@@ -35,6 +35,8 @@ namespace Mohdthat.Hubs
             var userContact = db.UserContacts.Where(u => u.CurrnetUser == CurrentUser);
             //Group
             var userRoom = db.UserRoom.Include(u => u.Room).Where(u => u.UserSelected == CurrentUser);
+            var numberOfUsersInGroup = db.UserRoom.Include(n => n.User).ToList();
+
             Clients.Caller.currentUser(CurrentUser);
             //Clients.Caller.userContact(userContact);
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
@@ -42,7 +44,7 @@ namespace Mohdthat.Hubs
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id , UserName = CurrentUser});
                 Clients.Caller.onConnected(id, CurrentUser, ConnectedUsers);
                 Clients.Caller.userContact(userContact, ConnectedUsers);
-                Clients.Caller.groups(userRoom);
+                Clients.Caller.groups(userRoom , numberOfUsersInGroup);
             }
             Clients.AllExcept(id).onNewUserConnected(id, CurrentUser);
             return base.OnConnected();
@@ -165,12 +167,15 @@ namespace Mohdthat.Hubs
                 CreatedAt = DateTime.Now
             });
             db.SaveChanges();
+
+            Clients.Caller.reciveGroupMessageCaller(currnetUserName, message);
         }
 
         public void GetGroupMessage(int roomid)
         {
             var currnetUserName = Context.User.Identity.Name;
             var getMessage = db.RoomEntries.Include(u => u.Sender).Where(r => r.Room.Id == roomid);
+            
 
             Clients.Caller.reciveGroupMessageWhenClick(getMessage, currnetUserName, roomid);
         }

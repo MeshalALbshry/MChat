@@ -45,38 +45,42 @@
         })
     }
     //Event click inside this method
-    function addGroup(name,groupid,userId, img) {
-        if (img == null) {
-            img = 'Content/img/default-avatar.png'
-        }
-        var tag = '<div class="row sideBar-body" id="' + name + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="glyphicon glyphicon-user"></span></div></div></div></div>'
-        $("#sideBar").append(tag)
-        $('#' + name).click(function () {
-            groupID = groupid
-            isGroup = true
-            $('#input-message').show()
-            $('#btn-send').show()
-            if (selectedGroup != name || selected != name) {
-                $("#conversation").text('')
+    function addGroup(name,groupid,numberOfMember, img) {
+        if (groupID != groupid) {
+            if (img == null) {
+                img = 'Content/img/Group.png'
             }
-            selectedGroup = name
-            //toUserId = userId
-            currentConversion(name, img)
+            var tag = '<div class="row sideBar-body" id="' + name + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="glyphicon glyphicon-user" style="color:#3E9EF8"> '+numberOfMember+'</span></div></div></div></div>'
+            $("#sideBar").append(tag)
+        
+            $('#' + name).click(function () {
+                groupID = groupid
+                isGroup = true
+                $('#input-message').show()
+                $('#btn-send').show()
+                if (selectedGroup != name || selected != name) {
+                    $("#conversation").text('')
+                }
+                selectedGroup = name
+                //toUserId = userId
+                currentConversion(name, img)
 
-            var currentUserYouTalkToHimConID = pConnectedUsers.filter(x => x.UserName == name)
-            if (currentUserYouTalkToHimConID[0] == undefined) {
-                //User is deisconected
-                console.log("No coneection")
-            }else{
-                //User is connected
-                console.log(currentUserYouTalkToHimConID[0].UserName)
-                toUserId = currentUserYouTalkToHimConID[0].ConnectionId
-            }
+                //var currentUserYouTalkToHimConID = pConnectedUsers.filter(x => x.UserName == name)
+                //if (currentUserYouTalkToHimConID[0] == undefined) {
+                //    //User is deisconected
+                //    console.log("No coneection")
+                //}else{
+                //    //User is connected
+                //    console.log(currentUserYouTalkToHimConID[0].UserName)
+                //    toUserId = currentUserYouTalkToHimConID[0].ConnectionId
+                //}
 
-            $.connection.hub.start().done(function () {
-                hub.server.getGroupMessage(groupid)
+                $.connection.hub.start().done(function () {
+                    hub.server.getGroupMessage(groupid)
+                })
             })
-        })
+        }
+        
     }
 
     function deleteUserContact(name) {
@@ -198,11 +202,12 @@
     hub.client.reciveGroupMessageWhenClick = function(messages,currnetUserName,gId){
         if(rpmGroup != gId){
             rpmGroup = gId
+            console.log(gId)
             messages.forEach(function(msg){
                 //console.log(msg["Message"])
                 //console.log(msg["Sender"]["UserName"])
                 if (msg["Sender"]["UserName"] == currnetUserName) {
-                    console.log(msg["Sender"]["UserName"])
+                    //console.log(msg["Sender"]["UserName"])
                     sender(msg["Message"], currnetUserName)
                 }else{
                     //console.log(msg["Sender"]["UserName"])
@@ -211,15 +216,19 @@
             })
         }
     }
-    //Get Group
-    hub.client.groups = function(groups){
+
+    //Get Groups
+    hub.client.groups = function(groups,numberOfUsers){
 
         groups.forEach(function(group){
-            addGroup(group["Room"]["Name"],group["RoomID"])
+            var nOfU = numberOfUsers.filter(n => n.RoomID == group["RoomID"])
+            addGroup(group["Room"]["Name"],group["RoomID"],nOfU.length)
         })
     }
 
-    
+    hub.client.reciveGroupMessageCaller = function(cuser, msg){
+        $("#conversation").append(sender(msg, cuser));
+    }
    
     //Server
     $.connection.hub.start().done(function () {
@@ -233,6 +242,8 @@
                 }else{
                     hub.server.sendPrivateMessage(selected, toUserId, message);
                 }
+
+                
                 $("#input-message").val('')
             }
             

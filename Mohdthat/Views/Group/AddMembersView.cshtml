@@ -9,21 +9,24 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Add</th>
             </tr>
         </thead>
         <tbody>
             @{var cRoom = Model.UserRoom.Where(c => c.RoomID == Model.Group.Id);}
+            @{var count = 0;}
             @foreach (var user in Model.Users)
             {
-                
+                count++;
                 if (user.UserName != Model.CurrentUser)
                 {
                     var findUser = cRoom.FirstOrDefault(f => f.UserSelected == user.UserName);
                     if (findUser != null)
                     {
                             <tr>
+                                <td>@count</td>
                                 <td>@user.UserName</td>
                                 <td>@Html.ActionLink("Delete", "Delete", "Group", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
                             </tr>
@@ -31,6 +34,7 @@
                     else
                     {
                         <tr>
+                            <td>@count</td>
                             <td>@user.UserName</td>
                             <td>@Html.ActionLink("Add", "Add", "Group", new { id = user.Id, roomId = Model.Group.Id }, new { @class = "btn btn-success" })</td>
                         </tr>

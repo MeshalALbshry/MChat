@@ -377,6 +377,7 @@
     <Content Include="Content\Chat.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\default-avatar.png" />
+    <Content Include="Content\img\Group.png" />
     <Content Include="Content\img\Logo.png" />
     <Content Include="Content\whatsapp.css" />
     <Content Include="favicon.ico" />
