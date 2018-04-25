@@ -10,12 +10,9 @@
     $('#input-message').hide()
     $('#btn-send').hide()
     //$('#img-logo').css('background', 'url(Content/img/Logo.png) no-repeat')
-    function underscoreBS(name){
-        var str = name;
-        var replaced = str.split(' ').join('_');
-        return replaced
-    }
+    
     var hub = $.connection.chatHub;
+
     //Event click inside this method
     function addUserContact(name,userId, img) {
         if (img == null) {
@@ -31,6 +28,7 @@
                 $("#conversation").text('')
             }
             selected = name
+            selectedGroup = ' '
             //toUserId = userId
             currentConversion(name, img)
 
@@ -49,13 +47,14 @@
             })
         })
     }
+
     //Event click inside this method
     function addGroup(name,groupid,numberOfMember, img) {
         if (groupID != groupid) {
             if (img == null) {
                 img = 'Content/img/Group.png'
             }
-            var tag = '<div class="row sideBar-body" id="' + underscoreBS(name) + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="glyphicon glyphicon-user" style="color:#3E9EF8"> '+numberOfMember+'</span></div></div></div></div>'
+            var tag = '<div class="row sideBar-body" id="' + underscoreBS(name) + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="badge badge-primary" style="background:#3E9EF8"><span class="glyphicon glyphicon-user" style="color:white"> '+numberOfMember+'</span></span></div></div></div></div>'
             $("#sideBar").append(tag)
         
             $('#' + underscoreBS(name)).click(function () {
@@ -63,10 +62,11 @@
                 isGroup = true
                 $('#input-message').show()
                 $('#btn-send').show()
-                if (selectedGroup != name || selected != name) {
+                if (selectedGroup != name) {
                     $("#conversation").text('')
                 }
                 selectedGroup = name
+                selected = ' '
                 //toUserId = userId
                 currentConversion(name, img)
 
@@ -119,11 +119,13 @@
         $("#conversation").append(tag);
         scrollDown()
     }
+
     //To make name at Id works when click
     function underscoreBS(name){
         var str = name;
-        var replaced = str.split(' ').join('_');
-        return replaced
+        var replacedWithUnderScore = str.split(' ').join('_');
+        var replaceWithWQuestionMark = replacedWithUnderScore.split('?').join('');
+        return replaceWithWQuestionMark
     }
 
     //scrollDown
@@ -197,6 +199,7 @@
     hub.client.recivePrivateMessageWhenClick = function (messages, currentUser, toUser) {
         if (rpmName != toUser) {
             rpmName = toUser
+            rpmGroup = ''
             messages.forEach(function (msg) {
                 if (msg["Sender"] == currentUser) {
                     sender(msg["Message"], currentUser)
@@ -204,26 +207,27 @@
                     reciver(msg["Message"], msg["Sender"])
                 }
             })
+        }else{
+            console.log("Double click")
         }
     }
 
     //Group When click get data from server
-    var rpmGroup
+    var rpmGroup = ''
     hub.client.reciveGroupMessageWhenClick = function(messages,currnetUserName,gId){
         if(rpmGroup != gId){
             rpmGroup = gId
+            rpmName = ''
             console.log(gId)
             messages.forEach(function(msg){
-                //console.log(msg["Message"])
-                //console.log(msg["Sender"]["UserName"])
                 if (msg["Sender"]["UserName"] == currnetUserName) {
-                    //console.log(msg["Sender"]["UserName"])
                     sender(msg["Message"], currnetUserName)
                 }else{
-                    //console.log(msg["Sender"]["UserName"])
                     reciver(msg["Message"],msg["Sender"]["UserName"])
                 }
             })
+        }else{
+            console.log("Double click " + rpmGroup)
         }
     }
 

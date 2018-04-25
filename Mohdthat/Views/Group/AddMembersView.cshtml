@@ -17,31 +17,54 @@
         <tbody>
             @{var cRoom = Model.UserRoom.Where(c => c.RoomID == Model.Group.Id);}
             @{var count = 0;}
-            @foreach (var user in Model.Users)
+
+            @if (@Model.Group.CreatedBy == Model.CurrentUser)
             {
-                count++;
-                if (user.UserName != Model.CurrentUser)
+               foreach (var user in Model.Users)
                 {
-                    var findUser = cRoom.FirstOrDefault(f => f.UserSelected == user.UserName);
-                    if (findUser != null)
+                    count++;
+                    if (user.UserName != Model.CurrentUser)
                     {
+                        var findUser = cRoom.FirstOrDefault(f => f.UserSelected == user.UserName);
+                        if (findUser != null)
+                        {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@user.UserName</td>
+                                    <td>@Html.ActionLink("Delete", "Delete", "Group", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
+                                </tr>
+                        }
+                        else
+                        {
                             <tr>
                                 <td>@count</td>
                                 <td>@user.UserName</td>
-                                <td>@Html.ActionLink("Delete", "Delete", "Group", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
+                                <td>@Html.ActionLink("Add", "Add", "Group", new { id = user.Id, roomId = Model.Group.Id }, new { @class = "btn btn-success" })</td>
                             </tr>
+                        }
                     }
-                    else
-                    {
-                        <tr>
-                            <td>@count</td>
-                            <td>@user.UserName</td>
-                            <td>@Html.ActionLink("Add", "Add", "Group", new { id = user.Id, roomId = Model.Group.Id }, new { @class = "btn btn-success" })</td>
-                        </tr>
-                    }
-                }
                     
+                }
             }
+            else
+            {
+                var countj = 0;
+                foreach (var user in Model.Users)
+                {
+                        countj++;
+                        var findUser = cRoom.FirstOrDefault(f => f.UserSelected == user.UserName);
+                        if (findUser != null)
+                        {
+                                <tr>
+                                    <td>@countj</td>
+                                    <td>@user.UserName</td>
+                                    <td></td>
+                                </tr>
+                         }
+                    
+                }
+            }
+            
             
 
         </tbody>

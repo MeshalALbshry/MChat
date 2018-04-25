@@ -12,9 +12,18 @@
 
 @using (Html.BeginForm("Add", "Group"))
 { 
-     <button class="btn btn-success" type="submit">Add</button>
-     @Html.AntiForgeryToken()
-        @Html.TextBoxFor(m => m.Room.Name, new { @class = "form-control" })
+     
+     
+
+    <div class="container">
+        <div class="col-md-11">
+            @Html.AntiForgeryToken()
+            @Html.TextBoxFor(m => m.Room.Name, new { @class = "form-control", placeholder = "Type your group name"})
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-success" type="submit">Add</button>
+        </div>
+    </div>
 }
    
     
@@ -35,14 +44,22 @@
                     <td><h4>Nothing</h4></td>
                 }
             </tr>
+            @{var count = 0;}
             @foreach(var group in Model.Rooms){
+                count++;
                  <tr>
-                     <td><h4>@group.Id</h4></td>
+                     <td><h4>@count</h4></td>
                     <td><h4>@Html.ActionLink(group.Name, "AddMembersView", "Group", new { id = group.Id }, new { @class = "" })</h4></td>
                     <td><h4>@group.CreatedBy</h4></td>
                      <td><h4>@group.CreatedAt</h4></td>
                 </tr>          
             }
+            <tr>
+                <td><h4></h4></td>
+                <td><h4></h4></td>
+                <td><h4></h4></td>
+                <td><h4></h4></td>
+            </tr>          
         </tbody>
     </table>
 
