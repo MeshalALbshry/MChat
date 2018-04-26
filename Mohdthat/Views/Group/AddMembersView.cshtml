@@ -31,7 +31,7 @@
                                 <tr>
                                     <td>@count</td>
                                     <td>@user.UserName</td>
-                                    <td>@Html.ActionLink("Delete", "Delete", "Group", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
+                                    <td>@Html.ActionLink("Delete", "DeleteUserRoom", "Group", new { id = user.Id }, new { @class = "btn btn-danger" })</td>
                                 </tr>
                         }
                         else
@@ -44,23 +44,6 @@
                         }
                     }
                     
-                }
-            }
-            else
-            {
-                var countj = 0;
-                foreach (var user in Model.Users)
-                {
-                        countj++;
-                        var findUser = cRoom.FirstOrDefault(f => f.UserSelected == user.UserName);
-                        if (findUser != null)
-                        {
-                                <tr>
-                                    <td>@countj</td>
-                                    <td>@user.UserName</td>
-                                    <td></td>
-                                </tr>
-                         }
                     
                 }
             }

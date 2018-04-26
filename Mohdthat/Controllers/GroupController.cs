@@ -9,6 +9,8 @@ using Mohdthat.ViewModels;
 
 namespace Mohdthat.Controllers
 {
+
+    [Authorize]
     public class GroupController : Controller
     {
 
@@ -21,11 +23,13 @@ namespace Mohdthat.Controllers
         // GET: /Group/
         public ActionResult Index()
         {
+            var currentUser = User.Identity.Name;
             var GroupsAll = db.Room.ToList();
             var Groups = new RoomsViewModel
             {
                 Room = new Room(),
-                Rooms = GroupsAll
+                Rooms = GroupsAll,
+                CurrentUser = currentUser
             };
 
             return View(Groups);
@@ -116,7 +120,7 @@ namespace Mohdthat.Controllers
 
             return RedirectToAction("Index", "Group");
         }
-        public ActionResult Delete(string id)
+        public ActionResult DeleteUserRoom(string id)
         {
             var currnetUser = User.Identity.Name;
             var cuser_added = db.Users.FirstOrDefault(u => u.UserName == currnetUser);
@@ -127,6 +131,31 @@ namespace Mohdthat.Controllers
                 return HttpNotFound();
 
             db.UserRoom.Remove(userRoom);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Group");
+        }
+
+        //Delete Group
+        public ActionResult Delete(int id)
+        {
+            var room = db.Room.FirstOrDefault(r => r.Id == id);
+            var userRoom = db.UserRoom.Where(ur => ur.RoomID == room.Id);
+            var roomEntries = db.RoomEntries.Where(re => re.Room.Id == room.Id);
+            if (id == 0)
+                return HttpNotFound();
+
+            db.Room.Remove(room);
+
+            foreach(var ur in userRoom){
+                db.UserRoom.Remove(ur);
+            }
+
+            foreach (var ur in roomEntries)
+            {
+                db.RoomEntries.Remove(ur);
+            }
+            
             db.SaveChanges();
 
             return RedirectToAction("Index", "Group");

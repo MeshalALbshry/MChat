@@ -167,17 +167,28 @@ namespace Mohdthat.Hubs
                 CreatedAt = DateTime.Now
             });
             db.SaveChanges();
-
+            Clients.Group(room.Name).recieveMessageGroup(Context.User.Identity.Name, message);
             Clients.Caller.reciveGroupMessageCaller(currnetUserName, message);
         }
 
         public void GetGroupMessage(int roomid)
         {
             var currnetUserName = Context.User.Identity.Name;
-            var getMessage = db.RoomEntries.Include(u => u.Sender).Where(r => r.Room.Id == roomid);
+            var getMessage = db.RoomEntries.Include(u => u.Sender).Include(r => r.Room).Where(r => r.Room.Id == roomid);
             
 
-            Clients.Caller.reciveGroupMessageWhenClick(getMessage, currnetUserName, roomid);
+            Clients.Caller.reciveGroupMessageWhenClick(getMessage, currnetUserName, roomid, ConnectedUsers);
+        }
+
+        public void JoinGroup(string roomName)
+        {
+            Groups.Add(this.Context.ConnectionId, roomName);
+        }
+
+
+        public void LeaveGroup(string roomName)
+        {
+            Groups.Remove(this.Context.ConnectionId, roomName);
         }
         #endregion
 

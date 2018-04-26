@@ -12,6 +12,7 @@ using System;
 
 namespace Mohdthat.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ApplicationDbContext db;

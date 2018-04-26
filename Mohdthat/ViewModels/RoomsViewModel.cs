@@ -9,5 +9,6 @@ namespace Mohdthat.ViewModels
     {
         public IEnumerable<Room> Rooms { get; set; }
         public Room Room { get; set; }
+        public string CurrentUser { get; set; }
     }
 }

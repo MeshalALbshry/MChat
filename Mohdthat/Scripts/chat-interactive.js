@@ -2,8 +2,9 @@
     var userId = ''
     var toUserId
     var selected
+    var pCurrentUser
     //group
-    var selectedGroup
+    var selectedGroup = ' '
     var groupID
     var pConnectedUsers = []
     isGroup = false
@@ -27,6 +28,7 @@
             if (selected != name) {
                 $("#conversation").text('')
             }
+            if(selectedGroup != ' '){disConnectGroup()}
             selected = name
             selectedGroup = ' '
             //toUserId = userId
@@ -81,7 +83,12 @@
                 //}
 
                 $.connection.hub.start().done(function () {
-                    hub.server.getGroupMessage(groupid)
+                    hub.server.getGroupMessage(groupID)
+                })
+
+                $.connection.hub.start().done(function () {
+                    console.log("Start Joning " + selectedGroup)
+                    hub.server.joinGroup(selectedGroup)
                 })
             })
         }
@@ -120,6 +127,12 @@
         scrollDown()
     }
 
+    function disConnectGroup(){
+        $.connection.hub.start().done(function () {
+            hub.server.leaveGroup(selectedGroup)
+        })
+        selectedGroup = ''
+    }
     //To make name at Id works when click
     function underscoreBS(name){
         var str = name;
@@ -137,6 +150,7 @@
 
     hub.client.currentUser = function (userName) {
         currentUser(userName)
+        pCurrentUser = userName
     }
 
     hub.client.onConnected = function (id, currentUser, connectedUsers) {
@@ -214,11 +228,11 @@
 
     //Group When click get data from server
     var rpmGroup = ''
-    hub.client.reciveGroupMessageWhenClick = function(messages,currnetUserName,gId){
+    hub.client.reciveGroupMessageWhenClick = function(messages,currnetUserName,gId , connectedUser){
+        //console.log(connectedUser)
         if(rpmGroup != gId){
             rpmGroup = gId
             rpmName = ''
-            console.log(gId)
             messages.forEach(function(msg){
                 if (msg["Sender"]["UserName"] == currnetUserName) {
                     sender(msg["Message"], currnetUserName)
@@ -231,16 +245,26 @@
         }
     }
 
+    hub.client.recieveMessageGroup = function(user,message){
+        if(user == pCurrentUser){
+            //$("#conversation").append(sender(message, user));
+        }else{
+            $("#conversation").append(reciver(message, user));
+        }
+        
+    }
     //Get Groups
     hub.client.groups = function(groups,numberOfUsers){
 
         groups.forEach(function(group){
             var nOfU = numberOfUsers.filter(n => n.RoomID == group["RoomID"])
+
             addGroup(group["Room"]["Name"],group["RoomID"],nOfU.length)
         })
     }
 
     hub.client.reciveGroupMessageCaller = function(cuser, msg){
+        //console.log(cuser)
         $("#conversation").append(sender(msg, cuser));
     }
    
@@ -256,8 +280,6 @@
                 }else{
                     hub.server.sendPrivateMessage(selected, toUserId, message);
                 }
-
-                
                 $("#input-message").val('')
             }
             
@@ -268,7 +290,12 @@
 
                 var message = $("#input-message").val()
                 if (message != "") {
-                    hub.server.sendPrivateMessage(selected, toUserId, message);
+                    if (isGroup) {
+                        console.log(groupID)
+                        hub.server.sendToGroup(message,groupID)
+                    }else{
+                        hub.server.sendPrivateMessage(selected, toUserId, message);
+                    }
                     $("#input-message").val('')
                 }
                 //Disable textbox to prevent multiple submit

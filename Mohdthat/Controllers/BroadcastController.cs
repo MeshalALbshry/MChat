@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Mohdthat.Controllers
 {
+    [Authorize]
     public class BroadcastController : Controller
     {
         //
