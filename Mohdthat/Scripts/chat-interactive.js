@@ -173,7 +173,7 @@
     //Update if user has a new id
     setInterval(function(){
         var newCon = pConnectedUsers.filter(x => x.UserName == selected);
-        console.log(newCon)
+        //console.log(newCon)
         if (newCon.length != 0) {
             if (newCon[0].ConnectionId != undefined) {
                 if (toUserId != newCon[0].ConnectionId) {
@@ -223,7 +223,10 @@
     }
     var rpmName = ''
     hub.client.recivePrivateMessageWhenClick = function (messages, currentUser, toUser) {
-
+        var noti = notification.filter(x => x.name == toUser)
+        if (noti.length != 0) {
+            $("#notification-"+underscoreBS(toUser)).empty()
+        }
         if (rpmName != toUser) {
             rpmName = toUser
             rpmGroup = ''
@@ -267,20 +270,26 @@
         
     }
 
-    var noti = []
+    var notification  = []
     hub.client.notification = function(cuser){
-        
-        noti.push({
-            name:cuser,
-            noti: 5
-        })
-        //console.log("Noti "+ cuser)
+        var userNoti = notification .filter(x => x.name == cuser)
+        if (userNoti.length == 0) {
+            notification .push({
+                name:cuser,
+                noti:1
+            })
+            $("#notification-"+underscoreBS(cuser)).append(1)
+        }else{
+            console.log(userNoti[0].noti++)
+            $("#notification-"+underscoreBS(cuser)).empty()
+            $("#notification-"+underscoreBS(cuser)).append(userNoti[0].noti)
+        }
+        console.log(notification )
         //console.log("#notification-"+underscoreBS(cuser))
         //if (countNoti == 1) {
         //    $("#notification-"+underscoreBS(cuser)).append(2)
         //}else{
-        //    $("#notification-user").empty()
-        //    $("#notification-user").append(countNoti)
+            
         //}
     }
 
