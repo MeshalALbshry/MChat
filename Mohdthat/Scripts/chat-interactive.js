@@ -221,11 +221,14 @@
     hub.client.recivePrivateMessageCaller = function (user, message) {
         $("#conversation").append(sender(message, user));
     }
+
     var rpmName = ''
     hub.client.recivePrivateMessageWhenClick = function (messages, currentUser, toUser) {
         var noti = notification.filter(x => x.name == toUser)
         if (noti.length != 0) {
             $("#notification-"+underscoreBS(toUser)).empty()
+            console.log(noti[0].noti)
+            noti[0].noti = 0
         }
         if (rpmName != toUser) {
             rpmName = toUser
@@ -273,24 +276,19 @@
     var notification  = []
     hub.client.notification = function(cuser){
         var userNoti = notification .filter(x => x.name == cuser)
-        if (userNoti.length == 0) {
-            notification .push({
-                name:cuser,
-                noti:1
-            })
-            $("#notification-"+underscoreBS(cuser)).append(1)
-        }else{
-            console.log(userNoti[0].noti++)
-            $("#notification-"+underscoreBS(cuser)).empty()
-            $("#notification-"+underscoreBS(cuser)).append(userNoti[0].noti)
+        if (selected != cuser) {
+            if (userNoti.length == 0) {
+                notification .push({
+                    name:cuser,
+                    noti:1
+                })
+                $("#notification-"+underscoreBS(cuser)).append(1)
+            }else{
+                console.log(userNoti[0].noti++)
+                $("#notification-"+underscoreBS(cuser)).empty()
+                $("#notification-"+underscoreBS(cuser)).append(userNoti[0].noti)
+            }
         }
-        console.log(notification )
-        //console.log("#notification-"+underscoreBS(cuser))
-        //if (countNoti == 1) {
-        //    $("#notification-"+underscoreBS(cuser)).append(2)
-        //}else{
-            
-        //}
     }
 
     //Get Groups
