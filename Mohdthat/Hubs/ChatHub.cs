@@ -80,7 +80,7 @@ namespace Mohdthat.Hubs
                             ConversationID = privateChatConver.Id,
                             CreatedAt = DateTime.Now
                         });
-                        db.SaveChanges();
+                         db.SaveChanges();
                     }
                     else
                     {
@@ -133,6 +133,7 @@ namespace Mohdthat.Hubs
                 if (toUser != null)
                 {
                     Clients.Client(toUserIdCon).recivePrivateMessageOthers(Context.ConnectionId, currnetUserName, message);
+                    Clients.Client(toUserIdCon).notification(currnetUserName);
                 }
                 Clients.Caller.recivePrivateMessageCaller(currnetUserName, message);
         }

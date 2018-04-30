@@ -19,7 +19,7 @@
         if (img == null) {
             img = 'Content/img/default-avatar.png'
         }
-        var tag = '<div class="row sideBar-body" id="' + underscoreBS(name) + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="time-meta pull-right">18:1s</span></div></div></div></div>'
+        var tag = '<div class="row sideBar-body" id="' + underscoreBS(name) + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="badge badge-primary" id="notification-user" style="background:#6AB52B"></span></div></div></div></div>'
         $("#sideBar").append(tag)
         $('#' + underscoreBS(name)).click(function () {
             isGroup = false
@@ -175,8 +175,23 @@
         })
     }
 
+    //Update if user has a new id
+    setInterval(function(){
+        var newCon = pConnectedUsers.filter(x => x.UserName == selected);
+        
+        if (newCon[0].ConnectionId != undefined) {
+            if (toUserId != newCon[0].ConnectionId) {
+                toUserId = newCon[0].ConnectionId
+                console.log(newCon[0].ConnectionId)
+                console.log(toUserId)
+            }
+        }
+
+    },1000)
+
     hub.client.onNewUserConnected = function (id ,newUser) {
         //addUserContact(newUser, id)
+
         console.log("wlecome " + newUser)
         pConnectedUsers.push({
             ConnectionId: id,
@@ -211,6 +226,7 @@
     }
     var rpmName = ''
     hub.client.recivePrivateMessageWhenClick = function (messages, currentUser, toUser) {
+
         if (rpmName != toUser) {
             rpmName = toUser
             rpmGroup = ''
@@ -253,6 +269,17 @@
         }
         
     }
+
+    hub.client.notification = function(cuser){
+
+        //if (countNoti == 1) {
+        //    $("#notification-user").append(countNoti)
+        //}else{
+        //    $("#notification-user").empty()
+        //    $("#notification-user").append(countNoti)
+        //}
+    }
+
     //Get Groups
     hub.client.groups = function(groups,numberOfUsers){
 
