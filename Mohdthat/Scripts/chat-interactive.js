@@ -19,7 +19,7 @@
         if (img == null) {
             img = 'Content/img/default-avatar.png'
         }
-        var tag = '<div class="row sideBar-body" id="' + underscoreBS(name) + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="badge badge-primary" id="notification-user" style="background:#6AB52B"></span></div></div></div></div>'
+        var tag = '<div class="row sideBar-body" id="' + underscoreBS(name) + '"><div class="col-sm-3 col-xs-3 sideBar-avatar"><div class="avatar-icon"><img src="' + img + '" /></div></div><div class="col-sm-9 col-xs-9 sideBar-main"><div class="row"><div class="col-sm-8 col-xs-8 sideBar-name"><span class="name-meta">' + name + '</span></div><div class="col-sm-4 col-xs-4 pull-right sideBar-time"><span class="badge badge-primary" id="notification-'+underscoreBS(name)+'" style="background:#6AB52B"></span></div></div></div></div>'
         $("#sideBar").append(tag)
         $('#' + underscoreBS(name)).click(function () {
             isGroup = false
@@ -38,6 +38,7 @@
             if (currentUserYouTalkToHimConID[0] == undefined) {
                 //User is deisconected
                 console.log("No coneection")
+                toUserId =''
             }else{
                 //User is connected
                 console.log(currentUserYouTalkToHimConID[0].UserName)
@@ -141,7 +142,7 @@
         return replaceWithWQuestionMark
     }
 
-    //scrollDown
+    ////scrollDown
     function scrollDown() {
         $('#conversation').animate({
             scrollTop: $('#conversation').get(0).scrollHeight
@@ -161,12 +162,6 @@
                 UserName: cuser["UserName"]
             })
         })
-        //for (i = 0; i < connectedUsers.length; i++) {
-        //    if (connectedUsers[i].UserName != currentUser) {
-        //        addUserContact(connectedUsers[i].UserName, connectedUsers[i].ConnectionId);
-        //    }
-            
-        //}
     }
 
     hub.client.userContact = function (usersContact) {
@@ -178,12 +173,14 @@
     //Update if user has a new id
     setInterval(function(){
         var newCon = pConnectedUsers.filter(x => x.UserName == selected);
-        
-        if (newCon[0].ConnectionId != undefined) {
-            if (toUserId != newCon[0].ConnectionId) {
-                toUserId = newCon[0].ConnectionId
-                console.log(newCon[0].ConnectionId)
-                console.log(toUserId)
+        console.log(newCon)
+        if (newCon.length != 0) {
+            if (newCon[0].ConnectionId != undefined) {
+                if (toUserId != newCon[0].ConnectionId) {
+                    toUserId = newCon[0].ConnectionId
+                    console.log(newCon[0].ConnectionId)
+                    console.log(toUserId)
+                }
             }
         }
 
@@ -270,10 +267,17 @@
         
     }
 
+    var noti = []
     hub.client.notification = function(cuser){
-
+        
+        noti.push({
+            name:cuser,
+            noti: 5
+        })
+        //console.log("Noti "+ cuser)
+        //console.log("#notification-"+underscoreBS(cuser))
         //if (countNoti == 1) {
-        //    $("#notification-user").append(countNoti)
+        //    $("#notification-"+underscoreBS(cuser)).append(2)
         //}else{
         //    $("#notification-user").empty()
         //    $("#notification-user").append(countNoti)
