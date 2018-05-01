@@ -354,6 +354,14 @@
     <Compile Include="Migrations\201804220939336_RoomEntriesDeleteUpdatedAt.Designer.cs">
       <DependentUpon>201804220939336_RoomEntriesDeleteUpdatedAt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805010520130_AddReadToPrivateChat.cs" />
+    <Compile Include="Migrations\201805010520130_AddReadToPrivateChat.Designer.cs">
+      <DependentUpon>201805010520130_AddReadToPrivateChat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805010549588_ChangePrivateChatEntries.cs" />
+    <Compile Include="Migrations\201805010549588_ChangePrivateChatEntries.Designer.cs">
+      <DependentUpon>201805010549588_ChangePrivateChatEntries.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -575,6 +583,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804220939336_RoomEntriesDeleteUpdatedAt.resx">
       <DependentUpon>201804220939336_RoomEntriesDeleteUpdatedAt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805010520130_AddReadToPrivateChat.resx">
+      <DependentUpon>201805010520130_AddReadToPrivateChat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805010549588_ChangePrivateChatEntries.resx">
+      <DependentUpon>201805010549588_ChangePrivateChatEntries.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

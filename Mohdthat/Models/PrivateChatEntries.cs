@@ -19,6 +19,7 @@ namespace Mohdthat.Models
 
         public int  ConversationID { get; set; }
 
+        public bool Read { get; set; }
         public DateTime CreatedAt { get; set; }
 
     }

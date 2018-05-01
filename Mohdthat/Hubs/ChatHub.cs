@@ -33,6 +33,7 @@ namespace Mohdthat.Hubs
             var id = Context.ConnectionId;
             var CurrentUser = Context.User.Identity.Name;
             var userContact = db.UserContacts.Where(u => u.CurrnetUser == CurrentUser);
+           
             //Group
             var userRoom = db.UserRoom.Include(u => u.Room).Where(u => u.UserSelected == CurrentUser);
             var numberOfUsersInGroup = db.UserRoom.Include(n => n.User).ToList();
@@ -46,6 +47,7 @@ namespace Mohdthat.Hubs
                 Clients.Caller.userContact(userContact, ConnectedUsers);
                 Clients.Caller.groups(userRoom , numberOfUsersInGroup);
             }
+
             Clients.AllExcept(id).onNewUserConnected(id, CurrentUser);
             return base.OnConnected();
         }
@@ -145,7 +147,12 @@ namespace Mohdthat.Hubs
             if (privateChatConver != null)
             {
                 var privateChatEnt = db.PrivateChatEntries.ToList().Where(p => p.ConversationID == privateChatConver.Id);
-                
+                foreach (var message in privateChatEnt)
+                {
+                    message.Read = true;
+                    
+                }
+                db.SaveChanges();
                 if (privateChatEnt != null)
                 {
                     Clients.Caller.recivePrivateMessageWhenClick(privateChatEnt,currnetUserName,toUserName);
@@ -153,6 +160,16 @@ namespace Mohdthat.Hubs
             }
             
         }
+
+        public void GetUnReadMessage(string userNoti)
+        {
+            var CurrentUser = Context.User.Identity.Name;
+
+            var privateChatConver = db.PrivateChatConversation.FirstOrDefault(p => p.SesstionID == CurrentUser + "_" + userNoti || p.SesstionID == userNoti + "_" + CurrentUser);
+            var privateChatEnt = db.PrivateChatEntries.ToList().Where(p => p.ConversationID == privateChatConver.Id).Where(r => r.Read == false);
+            Clients.Caller.notifactionFromServer(privateChatEnt,userNoti);
+        }
+
         #endregion
 
         #region Group

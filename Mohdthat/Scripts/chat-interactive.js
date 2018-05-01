@@ -167,6 +167,9 @@
     hub.client.userContact = function (usersContact) {
         usersContact.forEach(function (user) {
             addUserContact(user["UserSelected"])
+            $.connection.hub.start().done(function () {
+                hub.server.getUnReadMessage(user["UserSelected"])
+            })
         })
     }
 
@@ -275,7 +278,7 @@
 
     var notification  = []
     hub.client.notification = function(cuser){
-        var userNoti = notification .filter(x => x.name == cuser)
+        var userNoti = notification.filter(x => x.name == cuser)
         if (selected != cuser) {
             if (userNoti.length == 0) {
                 notification .push({
@@ -284,11 +287,32 @@
                 })
                 $("#notification-"+underscoreBS(cuser)).append(1)
             }else{
-                console.log(userNoti[0].noti++)
+                //console.log(userNoti[0].noti++)
+                userNoti[0].noti++
                 $("#notification-"+underscoreBS(cuser)).empty()
                 $("#notification-"+underscoreBS(cuser)).append(userNoti[0].noti)
             }
         }
+    }
+
+    //notifaction come from server
+    hub.client.notifactionFromServer = function(noti){
+        var notification  = []
+        noti.forEach(function(n){
+            var userNoti = notification.filter(x => x.name == n["Sender"])
+            if (userNoti.length == 0) {
+                notification .push({
+                    name:n["Sender"],
+                    noti:1
+                })
+                $("#notification-"+underscoreBS(n["Sender"])).append(1)
+            }else{
+                //console.log(userNoti[0].noti++)
+                userNoti[0].noti++
+                $("#notification-"+underscoreBS(n["Sender"])).empty()
+                $("#notification-"+underscoreBS(n["Sender"])).append(userNoti[0].noti)
+            }
+        })
     }
 
     //Get Groups
@@ -305,6 +329,8 @@
         //console.log(cuser)
         $("#conversation").append(sender(msg, cuser));
     }
+
+    
    
     //Server
     $.connection.hub.start().done(function () {
