@@ -297,7 +297,7 @@
 
     //notifaction come from server
     hub.client.notifactionFromServer = function(noti){
-        var notification  = []
+        //var notification  = []
         noti.forEach(function(n){
             var userNoti = notification.filter(x => x.name == n["Sender"])
             if (userNoti.length == 0) {

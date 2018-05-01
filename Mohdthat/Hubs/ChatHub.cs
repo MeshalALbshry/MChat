@@ -69,7 +69,8 @@ namespace Mohdthat.Hubs
         {
             var currnetUserName = Context.User.Identity.Name;
             var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserIdCon);
-
+            //if you talk to user and he is online, true mean he is online 
+            var isOnline = toUser != null ? true : false;
             var privateChatConver = db.PrivateChatConversation.FirstOrDefault(p => p.SesstionID == currnetUserName + "_" + toUserName || p.SesstionID == toUserName + "_" + currnetUserName);
 
                 if (privateChatConver != null)
@@ -80,7 +81,8 @@ namespace Mohdthat.Hubs
                             Message = message,
                             Sender = currnetUserName,
                             ConversationID = privateChatConver.Id,
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            Read = isOnline
                         });
                          db.SaveChanges();
                     }
@@ -102,7 +104,8 @@ namespace Mohdthat.Hubs
                                 Message = message,
                                 Sender = currnetUserName,
                                 ConversationID = pId.Id,
-                                CreatedAt = DateTime.Now
+                                CreatedAt = DateTime.Now,
+                                Read = isOnline
                             });
                             db.SaveChanges();
                         }
@@ -126,13 +129,14 @@ namespace Mohdthat.Hubs
                              Message = message,
                              Sender = currnetUserName,
                              ConversationID = pId.Id,
-                            CreatedAt = DateTime.Now
+                             CreatedAt = DateTime.Now,
+                             Read = isOnline
                         });
                         db.SaveChanges();
                     }
                 }
 
-                if (toUser != null)
+                if (isOnline)
                 {
                     Clients.Client(toUserIdCon).recivePrivateMessageOthers(Context.ConnectionId, currnetUserName, message);
                     Clients.Client(toUserIdCon).notification(currnetUserName);
